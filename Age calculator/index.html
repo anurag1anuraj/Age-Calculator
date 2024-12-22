@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Calculator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="flex justify-center items-center h-screen">
+    <main class="flex flex-col justify-center items-center">
+        <h1 class="text-4xl">Age Calculator</h1>
+        <div class="flex flex-col mt-4">
+            <p class="text-xl">Enter your Birth Date</p>
+            <input type="date" class="border border-black w-[300px] text-xl mt-3" id="dateOfBirth">
+            <p style="display: none;" id="alertText" class="text-red-600">Enter Your Date of Birth</p>
+            <button id="calculate" class="bg-gray-900 text-white py-2 text-xl mt-3">Calculate</button>
+            <p class="text-lg text-center mt-3">
+                You are <span id="myAge">0</span> years and <span id="myMonth">0</span> months old
+            </p>
+        </div>
+    </main>
+
+    <script>
+        const dateOfBirth = document.getElementById("dateOfBirth");
+        const calculate = document.getElementById("calculate");
+        const alertText = document.getElementById("alertText");
+        const myAge = document.getElementById("myAge");
+        const myMonth = document.getElementById("myMonth");
+
+        calculate.addEventListener("click", function () {
+            if (dateOfBirth.value === "") {
+                alertText.style.display = "block";
+            } else {
+                alertText.style.display = "none";
+                const birthDate = new Date(dateOfBirth.value);
+                const currentDate = new Date();
+
+                let years = currentDate.getFullYear() - birthDate.getFullYear();
+                let months = currentDate.getMonth() - birthDate.getMonth();
+
+                if (months < 0) {
+                    years -= 1;
+                    months += 12;
+                }
+
+                myAge.textContent = years;
+                myMonth.textContent = months;
+            }
+        });
+    </script>
+</body>
+</html>
